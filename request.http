@@ -1,0 +1,47 @@
+### Get all
+GET http://localhost:8000/events
+
+
+### Create event
+POST http://localhost:8000/events
+content-Type: application/json
+
+{
+  "name": "Test event 1",
+  "location": "Tallinn",
+  "date": "2022-01-25T16:10:03.376Z",
+  "type": "concert",
+  "barCode": 23456789
+}
+
+### Get ticket
+GET  http://localhost:8000/tickets/1
+
+
+
+### Create ticket
+POST http://localhost:8000/tickets
+content-Type: application/json
+
+{
+  "validationCode": 23456789,
+  "event":1
+}
+
+
+### Sell ticket
+PATCH http://localhost:8000/tickets/1/sell
+content-Type: application/json
+
+{
+  "sold": true
+}
+
+### Validate ticket
+PATCH http://localhost:8000/tickets/1/validate
+content-Type: application/json
+
+{
+  "event": 1,
+  "validationCode": 23456789
+}
