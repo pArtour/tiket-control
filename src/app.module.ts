@@ -30,6 +30,11 @@ import { TicketModule } from './ticket/ticket.module';
       provide: APP_PIPE,
       useValue: new ValidationPipe({
         whitelist: true,
+        transform: true,
+        forbidNonWhitelisted: true,
+        transformOptions: {
+          enableImplicitConversion: true,
+        },
         // dismissDefaultMessages: true,
       }),
     },

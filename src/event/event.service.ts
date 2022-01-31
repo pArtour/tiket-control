@@ -11,7 +11,7 @@ export class EventService {
     @InjectRepository(Event) private repo: Repository<Event>, // private ticketService: TicketService,
   ) {}
 
-  async find() {
+  find() {
     // const tickets = await this.ticketService.
     return this.repo.find({ relations: ['tickets'] });
   }
@@ -21,23 +21,20 @@ export class EventService {
   }
 
   async createEvent(eventData: CreateEventDTO) {
-    const eventsByName = await this.repo.find({
+    const event = await this.repo.find({
       name: eventData.name,
     });
-    if (eventsByName.length) {
+    if (event.length) {
       throw new BadRequestException({
         error: 'Event already exists',
       });
     }
-    const eventsByBarCode = await this.repo.find({
-      barCode: eventData.barCode,
-    });
-    if (eventsByBarCode.length) {
-      throw new BadRequestException({
-        error: 'Event already exists',
-      });
-    }
-    const event = this.repo.create(eventData);
-    return this.repo.save(event);
+
+    const newEvent = this.repo.create(eventData);
+    return this.repo.save(newEvent);
+  }
+
+  async getAll() {
+    return this.repo.find();
   }
 }

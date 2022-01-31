@@ -11,17 +11,8 @@ export class CreateEventDTO {
 
   @IsDateString()
   @IsNotEmpty()
-  date: Date;
+  date: string;
 
   @IsString()
   type: string;
-
-  @IsNotEmpty()
-  @IsNumber(undefined, {
-    message: (args) => {
-      console.log({ args });
-      return `${args.property} is ${args.value}`;
-    },
-  })
-  barCode: number;
 }

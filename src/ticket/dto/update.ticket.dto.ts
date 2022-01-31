@@ -10,8 +10,4 @@ export class UpdateTicketDTO {
     },
   })
   validationCode: number;
-
-  @IsNumber()
-  @IsNotEmpty()
-  event: number;
 }

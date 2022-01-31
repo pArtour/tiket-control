@@ -18,9 +18,6 @@ export class Event {
   @Column()
   type: string;
 
-  @Column()
-  barCode: number;
-
   // @Column({ array: true, nullable: false, default: [] })
   @OneToMany(() => Ticket, (ticket) => ticket.event)
   tickets: Ticket[];

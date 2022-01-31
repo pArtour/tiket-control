@@ -1,5 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { Event } from 'src/event/event.entity';
+import { TicketEventDTO } from './dto/ticket.event.dto';
 
 @Entity()
 export class Ticket {

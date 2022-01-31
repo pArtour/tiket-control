@@ -19,6 +19,9 @@ export class EventDTO {
   barCode: number;
 
   @Expose()
+  date: Date;
+
+  @Expose()
   @ValidateNested({ always: true })
   @Type(() => EventTicketDTO)
   tickets: EventTicketDTO[];

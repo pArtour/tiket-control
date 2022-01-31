@@ -1,36 +1,38 @@
-### Get all
-GET http://localhost:8000/events
+### Get events list
+GET http://localhost:8000/api/events
 
+### Get all events
+GET http://localhost:8000/api/events/all
 
 ### Create event
-POST http://localhost:8000/events
+POST http://localhost:8000/api/events
 content-Type: application/json
 
 {
-  "name": "Test event 1",
+  "name": "Test event 2",
   "location": "Tallinn",
-  "date": "2022-01-25T16:10:03.376Z",
-  "type": "concert",
-  "barCode": 23456789
+  "date": "2022-02-25T16:10:03.376Z",
+  "type": "concert"
 }
 
 ### Get ticket
-GET  http://localhost:8000/tickets/1
+GET  http://localhost:8000/api/tickets/1
 
-
+### Get tickets
+GET  http://localhost:8000/api/tickets
 
 ### Create ticket
-POST http://localhost:8000/tickets
+POST http://localhost:8000/api/tickets
 content-Type: application/json
 
 {
-  "validationCode": 23456789,
-  "event":1
+  "validationCode": 12345678,
+  "event": 2
 }
 
 
 ### Sell ticket
-PATCH http://localhost:8000/tickets/1/sell
+PATCH http://localhost:8000/api/tickets/3/sell
 content-Type: application/json
 
 {
@@ -38,10 +40,9 @@ content-Type: application/json
 }
 
 ### Validate ticket
-PATCH http://localhost:8000/tickets/1/validate
+PATCH http://localhost:8000/api/tickets/validate
 content-Type: application/json
 
 {
-  "event": 1,
-  "validationCode": 23456789
+  "validationCode": 12345678
 }

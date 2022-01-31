@@ -17,6 +17,10 @@ export class TicketService {
     private eventService: EventService,
   ) {}
 
+  find() {
+    return this.repo.find({ relations: ['event'] });
+  }
+
   findByID(id: number) {
     return this.repo.findOne({ id });
   }
@@ -33,7 +37,7 @@ export class TicketService {
       });
     }
 
-    if (event.barCode !== validationCode) {
+    if (String(validationCode).length < 8) {
       throw new BadRequestException({
         error: 'Invalid barcode',
       });
@@ -55,8 +59,10 @@ export class TicketService {
     return this.repo.save({ ...ticket, sold });
   }
 
-  async validateTicket(ticketID: number, ticketData: UpdateTicketDTO) {
-    const ticket = await this.repo.findOne(ticketID);
+  async validateTicket(ticketData: UpdateTicketDTO) {
+    const ticket = await this.repo.findOne({
+      validationCode: ticketData.validationCode,
+    });
     if (!ticket) {
       throw new NotFoundException({ error: 'Ticket not found' });
     }
@@ -66,14 +72,12 @@ export class TicketService {
     }
 
     const event = await this.eventService.findByID(ticket.event);
+
     if (!event) {
       throw new BadRequestException({ error: 'Event does not exist' });
     }
 
-    if (
-      event.barCode !== ticketData.validationCode ||
-      ticket.validationCode !== ticketData.validationCode
-    ) {
+    if (ticket.validationCode !== ticketData.validationCode) {
       throw new BadRequestException({ error: 'Invalid barcode' });
     }
 
